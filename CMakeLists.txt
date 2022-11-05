@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(game-development VERSION 0.0.1)
 
-add_executable(game-development src/main.cpp)
+add_executable(game-development src/main.cpp src/window.cpp includes/window.h)
 
 add_subdirectory(submodules/glfw)
 add_subdirectory(submodules/glew)
