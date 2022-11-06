@@ -2,8 +2,7 @@
 
 warp::Window* warp::createWindow(int width, int heigth, const char* title)
 {
-    warp::Window* callback;
-    callback = reinterpret_cast<warp::Window*>(malloc(sizeof(warp::Window)));
+    warp::Window* callback = reinterpret_cast<warp::Window*>(malloc(sizeof(warp::Window)));
     if (!glfwInit())
     {
         std::cerr << "failed to initialize 'GLFW'." << std::endl;
