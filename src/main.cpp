@@ -2,14 +2,14 @@
 
 int main(int argc, char** argv)
 {
-    Warp::Window::WinContext* WinContext = Warp::Window::createContext(1028, 768, "Window's Title");
-    while(!glfwWindowShouldClose(WinContext->m_window))
+    Warp::WindowContext WindowContext(1024, 768, "Window's");
+    while (!glfwWindowShouldClose(WindowContext.GetWindowInstance()))
     {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glfwSwapBuffers(WinContext->m_window);
+        glfwSwapBuffers(WindowContext.GetWindowInstance());
         glfwPollEvents();
     }
-    Warp::Window::destroyContext(WinContext);
+    WindowContext.DestroyContext();
     return EXIT_SUCCESS;
 }

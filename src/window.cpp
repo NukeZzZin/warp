@@ -1,43 +1,58 @@
 #include "../includes/window.hpp"
 
-Warp::Window::WinContext* Warp::Window::createContext(unsigned int width, unsigned int heigth, const char* title)
+Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, const char* title)
 {
-    Warp::Window::WinContext* callback = reinterpret_cast<Warp::Window::WinContext*>(malloc(sizeof(Warp::Window::WinContext*)));
+    this->m_DATAWindow.s_width = width;
+    this->m_DATAWindow.s_height = height;
+    this->m_DATAWindow.s_title = title;
+    this->CreateContext();
+}
+
+Warp::WindowContext::~WindowContext()
+{
+    DestroyContext();
+    free(this);
+}
+
+BOOL Warp::WindowContext::CreateContext()
+{
     if (!glfwInit())
     {
         fprintf(stderr, "%s\n", "failed to initialize GLFW.");
-        return nullptr;
+        return FALSE;
     }
+    // ! glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    // ? glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR, GLFW_RELEASE_BEHAVIOR_NONE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, MAJOR_VERSION);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, MINOR_VERSION);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     // ? glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-    callback->s_width = width;
-    callback->s_heigth = heigth;
-    callback->s_title = title;
-    callback->m_window = glfwCreateWindow(callback->s_width, callback->s_heigth, callback->s_title, nullptr, nullptr);
-    if (callback->m_window == nullptr)
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+    m_GLFWindow = glfwCreateWindow(this->m_DATAWindow.s_width, this->m_DATAWindow.s_height, this->m_DATAWindow.s_title, nullptr, nullptr);
+    if (m_GLFWindow == nullptr)
     {
         fprintf(stderr, "%s\n", "failed to initialize GLFW Window.");
         glfwTerminate();
-        return nullptr;
+        return FALSE;
     }
-    glfwMakeContextCurrent(callback->m_window);
+    glfwMakeContextCurrent(m_GLFWindow);
     if (glewInit() != GLEW_OK)
     {
         fprintf(stderr, "%s\n", "failed to initialize GLEW.");
-        glfwDestroyWindow(callback->m_window);
+        glfwDestroyWindow(m_GLFWindow);
         glfwTerminate();
-        return nullptr;
+        return FALSE;
     }
     glfwSwapInterval(SWAP_INTERVAL_DEFAULT);
-    callback->s_initialized = true;
-    return callback;
+    this->s_initialized = true;
+    return TRUE;
 }
 
-void Warp::Window::destroyContext(Warp::Window::WinContext* context)
+BOOL Warp::WindowContext::DestroyContext()
 {
-    glfwDestroyWindow(context->m_window);
-    glfwTerminate();
+    if (s_initialized == TRUE)
+        glfwTerminate();
+    if (m_GLFWindow != nullptr)
+        glfwDestroyWindow(m_GLFWindow);
+    return TRUE;
 }

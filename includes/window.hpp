@@ -6,10 +6,6 @@
 #define MAJOR_VERSION 3
 #define MINOR_VERSION 3
 
-// #define WINDOW_TITLE "Warp"
-// #define WINDOW_WIDTH 1024
-// #define WINDOW_HEIGTH 768
-
 #define SWAP_INTERVAL_DEFAULT 1
 
 #include <stdio.h>
@@ -17,24 +13,32 @@
 
 #include <glfw/glfw3.h>
 #include <gl/glew.h>
-#include <gl/gl.h>
 
 namespace Warp
 {
-    namespace Window
+    typedef struct WindowProps
     {
-        typedef struct WinContext
-        {
-            GLFWwindow* m_window;
-            unsigned int s_width, s_heigth;
-            const char* s_title;
-            bool s_initialized;
-        } WinContext;
-        // * initialize a window context.
-        WinContext* createContext(unsigned int width, unsigned int heigth, const char* title);
-        // * destroy a window context.
-        void destroyContext(WinContext* context);
-    }
+        unsigned int s_width;
+        unsigned int s_height;
+        const char* s_title;
+    } WindowProps;
+    class WindowContext
+    {
+        protected:
+        GLFWwindow* m_GLFWindow;
+        WindowProps m_DATAWindow;
+        BOOL s_initialized = false;
+        public:
+        WindowContext(unsigned int, unsigned int, const char*);
+        virtual ~WindowContext();
+        BOOL CreateContext();
+        BOOL DestroyContext();
+
+        inline unsigned int GetWindowWidth() const { return m_DATAWindow.s_width; }
+        inline unsigned int GetWindowHeigth() const { return m_DATAWindow.s_height; }
+        inline const char* GetWindowTitle() const { return m_DATAWindow.s_title; }
+        inline GLFWwindow* GetWindowInstance() const { return m_GLFWindow; }
+    };
 }
 
 #endif
