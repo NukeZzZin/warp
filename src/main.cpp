@@ -1,25 +1,15 @@
-#include "../includes/window.h"
+#include "../includes/window.hpp"
 
 int main(int argc, char** argv)
 {
-    WinContext* context = createContext(1280, 720, "Game Development");
-    if (context == nullptr)
-    {
-        fprintf(stderr, "%s", "failed to create WinContext.\n");
-        return EXIT_FAILURE;
-    }
-    while (!glfwWindowShouldClose(context->m_window))
+    Warp::Window::WinContext* WinContext = Warp::Window::createContext(1028, 768, "Window's Title");
+    while(!glfwWindowShouldClose(WinContext->m_window))
     {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // if (glfwGetKey(context->m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        // {
-        //     glfwSetWindowShouldClose(context->m_window, GL_TRUE);
-        // }
-        glfwSwapBuffers(context->m_window);
+        glfwSwapBuffers(WinContext->m_window);
         glfwPollEvents();
     }
-    glfwDestroyWindow(context->m_window);
-    glfwTerminate();
+    Warp::Window::destroyContext(WinContext);
     return EXIT_SUCCESS;
 }

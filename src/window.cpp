@@ -1,33 +1,43 @@
-#include "../includes/window.h"
+#include "../includes/window.hpp"
 
-WinContext* createContext(int width, int heigth, const char* title)
+Warp::Window::WinContext* Warp::Window::createContext(unsigned int width, unsigned int heigth, const char* title)
 {
-    WinContext* callback = reinterpret_cast<WinContext*>(malloc(sizeof(WinContext)));
+    Warp::Window::WinContext* callback = reinterpret_cast<Warp::Window::WinContext*>(malloc(sizeof(Warp::Window::WinContext*)));
     if (!glfwInit())
     {
-        fprintf(stderr, "%s", "failed to initialize GLFW.\n");
+        fprintf(stderr, "%s\n", "failed to initialize GLFW.");
         return nullptr;
     }
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, MAJOR_VERSION);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, MINOR_VERSION);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+    // ? glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-    callback->m_window  = glfwCreateWindow(width, heigth, title, nullptr, nullptr);
+    callback->s_width = width;
+    callback->s_heigth = heigth;
+    callback->s_title = title;
+    callback->m_window = glfwCreateWindow(callback->s_width, callback->s_heigth, callback->s_title, nullptr, nullptr);
     if (callback->m_window == nullptr)
     {
-        fprintf(stderr, "%s", "failed to initialize GLFW Window.\n");
+        fprintf(stderr, "%s\n", "failed to initialize GLFW Window.");
         glfwTerminate();
         return nullptr;
     }
     glfwMakeContextCurrent(callback->m_window);
     if (glewInit() != GLEW_OK)
     {
-        fprintf(stderr, "%s", "failed to initialize GLEW.\n");
+        fprintf(stderr, "%s\n", "failed to initialize GLEW.");
         glfwDestroyWindow(callback->m_window);
         glfwTerminate();
         return nullptr;
     }
-    glfwSwapInterval(1);
+    glfwSwapInterval(SWAP_INTERVAL_DEFAULT);
+    callback->s_initialized = true;
     return callback;
+}
+
+void Warp::Window::destroyContext(Warp::Window::WinContext* context)
+{
+    glfwDestroyWindow(context->m_window);
+    glfwTerminate();
 }
