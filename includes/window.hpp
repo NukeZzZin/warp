@@ -27,17 +27,20 @@ namespace Warp
         protected:
         GLFWwindow* m_GLFWindow;
         WindowProps m_DATAWindow;
-        BOOL s_initialized = false;
+        BOOL s_initialized = FALSE;
         public:
         WindowContext(unsigned int, unsigned int, const char*);
         virtual ~WindowContext();
+
         BOOL CreateContext();
         BOOL DestroyContext();
 
-        inline unsigned int GetWindowWidth() const { return m_DATAWindow.s_width; }
-        inline unsigned int GetWindowHeigth() const { return m_DATAWindow.s_height; }
-        inline const char* GetWindowTitle() const { return m_DATAWindow.s_title; }
-        inline GLFWwindow* GetWindowInstance() const { return m_GLFWindow; }
+        inline void SetSwapBuffers() const { return glfwSwapBuffers(m_GLFWindow); };
+        inline BOOL GetWindowShouldClose() const { return glfwWindowShouldClose(m_GLFWindow); };
+        inline unsigned int GetWindowWidth() const { return m_DATAWindow.s_width; };
+        inline unsigned int GetWindowHeigth() const { return m_DATAWindow.s_height; };
+        inline const char* GetWindowTitle() const { return m_DATAWindow.s_title; };
+        inline GLFWwindow* GetWindowInstance() const { return m_GLFWindow; };
     };
 }
 

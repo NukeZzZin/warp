@@ -10,8 +10,7 @@ Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, cons
 
 Warp::WindowContext::~WindowContext()
 {
-    DestroyContext();
-    free(this);
+    this->s_initialized = this->DestroyContext();
 }
 
 BOOL Warp::WindowContext::CreateContext()
@@ -44,7 +43,7 @@ BOOL Warp::WindowContext::CreateContext()
         return FALSE;
     }
     glfwSwapInterval(SWAP_INTERVAL_DEFAULT);
-    this->s_initialized = true;
+    this->s_initialized = TRUE;
     return TRUE;
 }
 
@@ -52,7 +51,11 @@ BOOL Warp::WindowContext::DestroyContext()
 {
     if (s_initialized == TRUE)
         glfwTerminate();
+    else
+        return FALSE;
     if (m_GLFWindow != nullptr)
         glfwDestroyWindow(m_GLFWindow);
+    else
+        return FALSE;
     return TRUE;
 }
