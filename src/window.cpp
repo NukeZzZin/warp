@@ -10,7 +10,7 @@ Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, cons
 
 Warp::WindowContext::~WindowContext()
 {
-    this->s_initialized = this->DestroyContext();
+    this->DestroyContext();
 }
 
 BOOL Warp::WindowContext::CreateContext()
@@ -47,15 +47,10 @@ BOOL Warp::WindowContext::CreateContext()
     return TRUE;
 }
 
-BOOL Warp::WindowContext::DestroyContext()
+void Warp::WindowContext::DestroyContext()
 {
     if (s_initialized == TRUE)
         glfwTerminate();
-    else
-        return FALSE;
     if (m_GLFWindow != nullptr)
         glfwDestroyWindow(m_GLFWindow);
-    else
-        return FALSE;
-    return TRUE;
 }

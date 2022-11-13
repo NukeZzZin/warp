@@ -33,7 +33,7 @@ namespace Warp
         virtual ~WindowContext();
 
         BOOL CreateContext();
-        BOOL DestroyContext();
+        void DestroyContext();
 
         inline void SetSwapBuffers() const { return glfwSwapBuffers(m_GLFWindow); };
         inline BOOL GetWindowShouldClose() const { return glfwWindowShouldClose(m_GLFWindow); };
