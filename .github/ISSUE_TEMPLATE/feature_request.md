@@ -3,7 +3,6 @@ name: Feature request
 about: Suggest an idea for this project.
 title: "[future]"
 labels: bug, help wanted, question
-assignees: NukeZzZin
 
 ---
 
