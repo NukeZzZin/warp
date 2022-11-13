@@ -40,4 +40,4 @@ jobs:
                 submodules: recursive
                 fetch-depth: 0
             - name: compiling
-              run: mkdir build && cd build && cmake .
+              run: mkdir build && cd build && cmake ..
