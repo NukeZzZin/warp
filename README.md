@@ -17,7 +17,7 @@ This project is just a simple game, made in c++ using **opengl**, **glfw**, **gl
 1. Use `rm -rf build` in your terminal.
 2. Use `mkdir ./build/` in your terminal.
 3. use `cmake --build ./build/` in your terminal.
-4. use `make` in your terminal.
+4. use `cd ./build/ && make` in your terminal.
 
 ## 📝 License
 
