@@ -40,4 +40,6 @@ jobs:
                 submodules: recursive
                 fetch-depth: 0
             - name: compiling
-              run: cmake --build ./build/
+              run: |
+                mkdir ./build/
+                cmake --build ./build/
