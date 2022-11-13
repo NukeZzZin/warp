@@ -25,7 +25,7 @@ jobs:
                 restore-keys: |
                     ${{ runner.os }}-${{ github.sha }}
             - name: create cache directory
-              if: steps.ccache-restore.outputs.cache-hit != "true"
+              if: steps.ccache-restore.outputs.cache-hit != 'true'
               run: mkdir -p ~/.cache
 
     build:
