@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
 ---
 name: Bug report
 about: Create a report to help us improve
@@ -28,4 +32,8 @@ If applicable, add screenshots to help explain your problem.
  - Build [e.g. ITL22]
 
 **Additional context**
+<<<<<<< HEAD
 Add any other context about the problem here.
+=======
+Add any other context about the problem here.
+>>>>>>> refs/remotes/origin/master
