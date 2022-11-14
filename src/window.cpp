@@ -6,10 +6,12 @@ Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, cons
     this->m_DATAWindow.s_height = height;
     this->m_DATAWindow.s_title = title;
     glfwSetErrorCallback([](int error_code, const char* description) {
-        fprintf(stderr, "a error has dispatch with (%d - error code) and (%s - error description).\n", error_code, description);
+        fprintf(stderr, "error registered a (%d - error code) and (%s - error description).\n", error_code, description);
     });
     this->CreateContext();
 }
+
+// TODO: finish implementing a desconstrutor - (Warp::WindowContext::~WindowContext)
 
 Warp::WindowContext::~WindowContext()
 {
@@ -67,8 +69,12 @@ void Warp::WindowContext::DisableHandlers()
 
 void Warp::WindowContext::DestroyContext()
 {
-    if (s_initialized == TRUE)
-        glfwTerminate();
-    if (m_GLFWindow != nullptr)
-        glfwDestroyWindow(m_GLFWindow);
+    this->DisableHandlers();
+    fprintf(stdout, "window closing registered a (pointer = 0x%p) - (name = '%s')\n", this->m_GLFWindow, this->m_DATAWindow.s_title);
+    if (this->m_GLFWindow != nullptr)
+    {
+        glfwDestroyWindow(this->m_GLFWindow);
+        this->m_GLFWindow = nullptr;
+    }
+    glfwTerminate();
 }
