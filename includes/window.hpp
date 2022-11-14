@@ -34,16 +34,11 @@ namespace Warp
 
         void CreateContext();
         void DestroyContext();
+        void CreateHandlers();
+        void DestroyHandlers();
 
-        void EnableHandlers();
-        void DisableHandlers();
-
-        void SetWindowWidth(unsigned int);
-        void SetWindowHeigth(unsigned int);
-        void SetWindowTitle(const char*);
-
-        inline void SetSwapBuffers() const { return glfwSwapBuffers(m_GLFWindow); };
-        inline BOOL GetWindowShouldClose() const { return glfwWindowShouldClose(m_GLFWindow); };
+        inline void SwapBuffers() const { return glfwSwapBuffers(m_GLFWindow); };
+        inline BOOL WindowShouldClose() const { return glfwWindowShouldClose(m_GLFWindow); };
         inline unsigned int GetWindowWidth() const { return m_DATAWindow.s_width; };
         inline unsigned int GetWindowHeigth() const { return m_DATAWindow.s_height; };
         inline const char* GetWindowTitle() const { return m_DATAWindow.s_title; };

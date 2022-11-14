@@ -2,6 +2,7 @@
 
 Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, const char* title)
 {
+    this->m_GLFWindow = nullptr;
     this->m_DATAWindow.s_width = width;
     this->m_DATAWindow.s_height = height;
     this->m_DATAWindow.s_title = title;
@@ -55,8 +56,8 @@ void Warp::WindowContext::CreateContext()
 
 void Warp::WindowContext::DestroyContext()
 {
-    this->DisableHandlers();
-    fprintf(stdout, "window closing registered a (pointer = 0x%p) - (name = '%s')\n", this->m_GLFWindow, this->m_DATAWindow.s_title);
+    this->DestroyHandlers();
+    fprintf(stdout, "window closing registered a (pointer = 0x%p) - (name = %s)\n", this->m_GLFWindow, this->m_DATAWindow.s_title);
     if (this->m_GLFWindow != nullptr)
     {
         glfwDestroyWindow(this->m_GLFWindow);
@@ -65,20 +66,19 @@ void Warp::WindowContext::DestroyContext()
     glfwTerminate();
 }
 
-// TODO: finish implementing a handlers - (Warp::WindowContext::EnableHandlers)
+// TODO: finish implementing a handlers - (Warp::WindowContext::CreateHandlers)
 
-void Warp::WindowContext::EnableHandlers()
+void Warp::WindowContext::CreateHandlers()
 {
     glfwSetWindowRefreshCallback(m_GLFWindow, [](GLFWwindow* window) {
         Warp::WindowContext* windowContext = reinterpret_cast<WindowContext*>(glfwGetWindowUserPointer(window));
         int width, height;
 		glfwGetWindowSize(window, &width, &height);
-        windowContext->SetWindowWidth(width);
-        windowContext->SetWindowHeigth(height);
-        // ! glViewport(0, 0, width, height);
-        // ! glScissor(0, 0, width, height);
-        glViewport(0, 0, static_cast<int>(windowContext->GetWindowWidth()), static_cast<int>(windowContext->GetWindowHeigth()));
-        glScissor(0, 0, static_cast<int>(windowContext->GetWindowWidth()), static_cast<int>(windowContext->GetWindowHeigth()));
+        windowContext->m_DATAWindow.s_width = width;
+        windowContext->m_DATAWindow.s_height = height;
+        glViewport(0, 0, static_cast<int>(windowContext->m_DATAWindow.s_width), static_cast<int>(windowContext->m_DATAWindow.s_height));
+        glScissor(0, 0, static_cast<int>(windowContext->m_DATAWindow.s_width), static_cast<int>(windowContext->m_DATAWindow.s_height));
+        fprintf(stdout, "window viewport change registered a (width = %d) - (height = %d)\n", windowContext->m_DATAWindow.s_width, windowContext->m_DATAWindow.s_height);
     });
 
     glfwSetKeyCallback(m_GLFWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -86,30 +86,10 @@ void Warp::WindowContext::EnableHandlers()
     });
 }
 
-// TODO: finish implementing a handlers - (Warp::WindowContext::DisableHandlers)
+// TODO: finish implementing a handlers - (Warp::WindowContext::DestroyHandlers)
 
-void Warp::WindowContext::DisableHandlers()
+void Warp::WindowContext::DestroyHandlers()
 {
+    glfwSetWindowRefreshCallback(m_GLFWindow, nullptr);
     glfwSetKeyCallback(m_GLFWindow, nullptr);
-}
-
-// TODO: finish implementing a setting functions - (Warp::WindowContext::SetWindowWidth)
-
-void Warp::WindowContext::SetWindowWidth(unsigned int width)
-{
-    this->m_DATAWindow.s_width = width;
-}
-
-// TODO: finish implementing a setting functions - (Warp::WindowContext::SetWindowHeigth)
-
-void Warp::WindowContext::SetWindowHeigth(unsigned int height)
-{
-    this->m_DATAWindow.s_height = height;
-}
-
-// TODO: finish implementing a setting functions - (Warp::WindowContext::SetWindowTitle)
-
-void Warp::WindowContext::SetWindowTitle(const char* title)
-{
-    this->m_DATAWindow.s_title = title;
 }
