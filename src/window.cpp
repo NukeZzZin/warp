@@ -5,6 +5,9 @@ Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, cons
     this->m_DATAWindow.s_width = width;
     this->m_DATAWindow.s_height = height;
     this->m_DATAWindow.s_title = title;
+    glfwSetErrorCallback([](int error_code, const char* description) {
+        fprintf(stderr, "a error has dispatch with (%d - error code) and (%s - error description).\n", error_code, description);
+    });
     this->CreateContext();
 }
 
@@ -51,8 +54,7 @@ void Warp::WindowContext::CreateContext()
 void Warp::WindowContext::EnableHandlers()
 {
     glfwSetKeyCallback(m_GLFWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, GLFW_TRUE);
+        fprintf(stdout, "key callback registered a (key = %d) - (scancode = %d) - (action = %d) - (mods = %d)\n", key, scancode, action, mods);
     });
 }
 
