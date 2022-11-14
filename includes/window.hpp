@@ -32,8 +32,11 @@ namespace Warp
         WindowContext(unsigned int, unsigned int, const char*);
         virtual ~WindowContext();
 
-        BOOL CreateContext();
+        void CreateContext();
         void DestroyContext();
+
+        void EnableHandlers();
+        void DisableHandlers();
 
         inline void SetSwapBuffers() const { return glfwSwapBuffers(m_GLFWindow); };
         inline BOOL GetWindowShouldClose() const { return glfwWindowShouldClose(m_GLFWindow); };

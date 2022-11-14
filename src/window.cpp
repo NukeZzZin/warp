@@ -13,12 +13,12 @@ Warp::WindowContext::~WindowContext()
     this->DestroyContext();
 }
 
-BOOL Warp::WindowContext::CreateContext()
+void Warp::WindowContext::CreateContext()
 {
     if (!glfwInit())
     {
         fprintf(stderr, "%s\n", "failed to initialize GLFW.");
-        return FALSE;
+        return;
     }
     // ! glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     // ? glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR, GLFW_RELEASE_BEHAVIOR_NONE);
@@ -32,7 +32,7 @@ BOOL Warp::WindowContext::CreateContext()
     {
         fprintf(stderr, "%s\n", "failed to initialize GLFW Window.");
         glfwTerminate();
-        return FALSE;
+        return;
     }
     glfwMakeContextCurrent(m_GLFWindow);
     if (glewInit() != GLEW_OK)
@@ -40,11 +40,27 @@ BOOL Warp::WindowContext::CreateContext()
         fprintf(stderr, "%s\n", "failed to initialize GLEW.");
         glfwDestroyWindow(m_GLFWindow);
         glfwTerminate();
-        return FALSE;
+        return;
     }
     glfwSwapInterval(SWAP_INTERVAL_DEFAULT);
     this->s_initialized = TRUE;
-    return TRUE;
+}
+
+// TODO: finish implementing a handlers - (Warp::WindowContext::EnableHandlers)
+
+void Warp::WindowContext::EnableHandlers()
+{
+    glfwSetKeyCallback(m_GLFWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, GLFW_TRUE);
+    });
+}
+
+// TODO: finish implementing a handlers - (Warp::WindowContext::DisableHandlers)
+
+void Warp::WindowContext::DisableHandlers()
+{
+    glfwSetKeyCallback(m_GLFWindow, nullptr);
 }
 
 void Warp::WindowContext::DestroyContext()
