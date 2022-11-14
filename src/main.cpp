@@ -11,6 +11,5 @@ int main(int argc, char** argv)
         WindowContext.SetSwapBuffers();
         glfwPollEvents();
     }
-    WindowContext.DestroyContext();
     return EXIT_SUCCESS;
 }

@@ -16,6 +16,7 @@ Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, cons
 Warp::WindowContext::~WindowContext()
 {
     this->DestroyContext();
+    this->s_initialized = FALSE;
 }
 
 void Warp::WindowContext::CreateContext()
