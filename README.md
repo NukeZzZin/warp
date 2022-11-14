@@ -5,9 +5,9 @@ This project is just a simple game, made in c++ using **opengl**, **glfw**, **gl
 ## 🚀 Getting Started
 
 #### 🌎 Prerequisites
-- Install the [CMake](https://cmake.org/).
-- Install the [C++](https://isocpp.org/).
-- Install the [OpenGL](https://www.opengl.org/).
+- Install the [_CMake_](https://cmake.org/).
+- Install the [_C++_](https://isocpp.org/).
+- Install the [_OpenGL_](https://www.opengl.org/).
 
 #### 🚚 Installation
 1. Clone the repository using `git clone https://github.com/NukeZzZin/game-development.git` in your terminal.
