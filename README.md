@@ -21,6 +21,6 @@ This project is just a simple game, made in c++ using **opengl**, **glfw**, **gl
 
 ## 📝 License
 
-> *You can check out the full license [here](https://github.com/NukeZzZin/game-development/blob/master/LICENSE)*
+> *_You can check out the full license [**here**](https://github.com/NukeZzZin/game-development/blob/master/LICENSE)._*
 
 *This project is licensed under the terms of the **GNU General Public License v3.0** license.*
