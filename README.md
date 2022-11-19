@@ -10,14 +10,15 @@ This project is just a simple game, made in c++ using **opengl**, **glfw**, **gl
 - Install the [_OpenGL_](https://www.opengl.org/).
 
 #### 🚚 Installation
-1. Clone the repository using `git clone https://github.com/NukeZzZin/game-development.git` in your terminal.
-2. Install C++ Dependencies using the **`CMake`** and **`Git`** in your system.
+1. Clone the repository using ```git clone https://github.com/NukeZzZin/game-development.git``` in your terminal.
+2. Pull all submodules from the repository using ```git submodule update --init --recursive``` in your terminal.
+3. Install C++ Dependencies using the **`CMake`** and **`Git`** in your system.
 
 #### 🐱‍ Local Compile The Game
-1. Use `rm -rf build` in your terminal.
-2. Use `mkdir ./build/` in your terminal.
-3. use `cmake --build ./build/` in your terminal.
-4. use `cd ./build/ && make` in your terminal.
+1. Use ```rm -rf build``` in your terminal.
+2. Use ```mkdir ./build/``` in your terminal.
+3. use ```cmake --build ./build/``` in your terminal.
+4. use ```cd ./build/ && make``` in your terminal.
 
 ## 📝 License
 
