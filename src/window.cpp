@@ -1,6 +1,6 @@
 #include "../includes/window.hpp"
 
-Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, const char* title)
+Warp::Window::Window(unsigned int width, unsigned int height, const char* title)
 {
     this->m_GLFWindow = nullptr;
     this->s_width = width;
@@ -15,13 +15,13 @@ Warp::WindowContext::WindowContext(unsigned int width, unsigned int height, cons
     this->CreateHandlers();
 }
 
-Warp::WindowContext::~WindowContext()
+Warp::Window::~Window()
 {
     this->DestroyContext();
     this->s_initialized = FALSE;
 }
 
-void Warp::WindowContext::CreateContext()
+void Warp::Window::CreateContext()
 {
     if (!glfwInit())
     {
@@ -54,7 +54,7 @@ void Warp::WindowContext::CreateContext()
     this->s_initialized = TRUE;
 }
 
-void Warp::WindowContext::DestroyContext()
+void Warp::Window::DestroyContext()
 {
     this->DestroyHandlers();
     fprintf(stdout, "[INFO] - window closing registered a (pointer = 0x%p) - (name = %s).\n", this->m_GLFWindow, this->s_title);
@@ -66,40 +66,40 @@ void Warp::WindowContext::DestroyContext()
     glfwTerminate();
 }
 
-// TODO: finish implementing a handlers - (Warp::WindowContext::CreateHandlers)
+// TODO: finish implementing a handlers - (Warp::Window::CreateHandlers)
 
-void Warp::WindowContext::CreateHandlers()
+void Warp::Window::CreateHandlers()
 {
     glfwSetWindowRefreshCallback(this->m_GLFWindow, [](GLFWwindow* window) {
-        WindowContext* windowContext = static_cast<WindowContext*>(glfwGetWindowUserPointer(window));
+        Window* _Window = static_cast<Window*>(glfwGetWindowUserPointer(window));
         int width, height;
 		glfwGetWindowSize(window, &width, &height);
-        windowContext->s_width = width;
-        windowContext->s_height = height;
-        glViewport(0, 0, static_cast<int>(windowContext->s_width), static_cast<int>(windowContext->s_height));
-        glScissor(0, 0, static_cast<int>(windowContext->s_width), static_cast<int>(windowContext->s_height));
-        fprintf(stdout, "[INFO] - window viewport change registered a (width = %d) - (height = %d).\n", windowContext->s_width, windowContext->s_height);
+        _Window->s_width = width;
+        _Window->s_height = height;
+        glViewport(0, 0, static_cast<int>(_Window->s_width), static_cast<int>(_Window->s_height));
+        glScissor(0, 0, static_cast<int>(_Window->s_width), static_cast<int>(_Window->s_height));
+        fprintf(stdout, "[INFO] - window viewport change registered a (width = %d) - (height = %d).\n", _Window->s_width, _Window->s_height);
     });
 
     glfwSetMouseButtonCallback(this->m_GLFWindow, [](GLFWwindow* window, int button, int action, int mods) {
-        WindowContext* windowContext = static_cast<WindowContext*>(glfwGetWindowUserPointer(window));
+        Window* _Window = static_cast<Window*>(glfwGetWindowUserPointer(window));
         fprintf(stdout, "[INFO] - mouse callback registered a (button = %d) - (action = %d) - (mods = %d).\n", button, action, mods);
     });
 
     glfwSetKeyCallback(this->m_GLFWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-        WindowContext* windowContext = static_cast<WindowContext*>(glfwGetWindowUserPointer(window));
+        Window* _Window = static_cast<Window*>(glfwGetWindowUserPointer(window));
         fprintf(stdout, "[INFO] - keyboard callback registered a (key = %d) - (scancode = %d) - (action = %d) - (mods = %d).\n", key, scancode, action, mods);
     });
 
     glfwSetCursorPosCallback(this->m_GLFWindow, [](GLFWwindow* window, double xpos, double ypos) {
-        WindowContext* windowContext = static_cast<WindowContext*>(glfwGetWindowUserPointer(window));
-        fprintf(stdout, "[INFO] - mouse callback registered a (xpos = %f) - (ypos = %f).\n", xpos, ypos);
+        Window* _Window = static_cast<Window*>(glfwGetWindowUserPointer(window));
+        fprintf(stdout, "[INFO] - mouse callback registered a (xpos = %lf) - (ypos = %lf).\n", xpos, ypos);
     });
 }
 
-// TODO: finish implementing a handlers - (Warp::WindowContext::DestroyHandlers)
+// TODO: finish implementing a handlers - (Warp::Window::DestroyHandlers)
 
-void Warp::WindowContext::DestroyHandlers()
+void Warp::Window::DestroyHandlers()
 {
     glfwSetWindowRefreshCallback(this->m_GLFWindow, nullptr);
     glfwSetMouseButtonCallback(this->m_GLFWindow, nullptr);

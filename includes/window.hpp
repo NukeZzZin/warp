@@ -16,7 +16,7 @@
 
 namespace Warp
 {
-    class WindowContext
+    class Window
     {
         protected:
             GLFWwindow* m_GLFWindow;
@@ -25,8 +25,8 @@ namespace Warp
             unsigned int s_height = 768;
             const char* s_title = "Window's";
         public:
-            WindowContext(unsigned int, unsigned int, const char*);
-            virtual ~WindowContext();
+            Window(unsigned int, unsigned int, const char*);
+            virtual ~Window();
 
             void CreateContext();
             void DestroyContext();
