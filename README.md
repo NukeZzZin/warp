@@ -1,6 +1,6 @@
 ## 🌌 About The Project
 
-This project is just a simple game, made in c++ using **opengl**, **glfw**, **glew**, **glm** and **other technologies**. With builds in **Windows**, **Linux** and **Mac** using **cmake**.
+This project is just a simple game, made in [**_c++_**](https://isocpp.org/) using [**_opengl_**](https://www.opengl.org/), [**_glfw_**](https://github.com/glfw/glfw), [**_glew_**](https://github.com/nigels-com/glew),[ **_glm_**](https://github.com/g-truc/glm) and **_other technologies_**. With builds in **_Windows_**, **_Linux_** and **_Mac_** using [**_cmake_**](https://cmake.org/).
 
 ## 🚀 Getting Started
 
@@ -12,7 +12,7 @@ This project is just a simple game, made in c++ using **opengl**, **glfw**, **gl
 #### 🚚 Installation
 1. Clone the repository using ```git clone https://github.com/NukeZzZin/game-development.git``` in your terminal.
 2. Pull all submodules from the repository using ```git submodule update --init --recursive``` in your terminal.
-3. Install C++ Dependencies using the **`CMake`** and **`Git`** in your system.
+3. Install C++ Dependencies using the **`cmake`** and **`git`** in your system.
 
 #### 🐱‍ Local Compile The Game
 1. Use ```rm -rf build``` in your terminal.
@@ -22,6 +22,6 @@ This project is just a simple game, made in c++ using **opengl**, **glfw**, **gl
 
 ## 📝 License
 
-> ***You can check out the full license [**here**](https://github.com/NukeZzZin/game-development/blob/master/LICENSE).***
+> ***You can check out the full license [**_here_**](https://github.com/NukeZzZin/game-development/blob/master/LICENSE).***
 
 *This project is licensed under the terms of the **GNU General Public License v3.0** license.*
